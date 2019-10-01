@@ -25,6 +25,15 @@ setup(
     license='MIT',
     packages=['production'],
     install_requires=[
-        'pypandoc>=1.4'
+        'pypandoc>=1.4',
+        'pandas>=0.25.1',
+        'scikit-learn>=0.21.3',
+        'scipy>=1.3.1',
+        'matplotlib>=3.1.1',
+	'pytest>=5.2.0',
+        'pytest-runner>=5.1',
     ],
+    setup_requires=['pytest-runner'],
+    tests_require=['pytest'],
+
 )
