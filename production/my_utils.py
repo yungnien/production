@@ -221,3 +221,4 @@ embedding_size = 300
 max_tokens = 30
 pad = 'post'
 path = '/content/drive/My Drive/data/'
+filename = 'train.csv'

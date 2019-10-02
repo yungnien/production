@@ -23,6 +23,7 @@ pandas==0.25.1
 pluggy==0.13.0
 protobuf==3.9.2
 py==1.8.0
+pyahocorasick==1.4.0
 pypandoc==1.4
 pyparsing==2.4.2
 pytest==5.2.0
@@ -37,7 +38,9 @@ tensorflow==1.14.0
 tensorflow-estimator==1.14.0
 tensorflow-hub==0.6.0
 termcolor==1.1.0
+TextSearch==0.0.17
 unicode==2.7
+Unidecode==1.1.1
 wcwidth==0.1.7
 Werkzeug==0.16.0
 wrapt==1.11.2
