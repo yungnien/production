@@ -220,5 +220,5 @@ embedding_size = 300
 # mean + 2 std
 max_tokens = 30
 pad = 'post'
-path = '/content/drive/My Drive/data/'
+path = '../exploration/data/'
 filename = 'train.csv'

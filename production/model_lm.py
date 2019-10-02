@@ -43,13 +43,14 @@ def train_lm(filename):
         logging.info('\n')
 
     export_dir = dnn.export_savedmodel(path+'storage/models/export', serving_input_receiver_fn)        
-    return dnn
+    logging.info('export model to '+ export_dir)
+    return dnn, export_dir
 
-def predict_lm(sentence):
+def predict_lm(sentence, export_dir):
     export_dir = b'/content/drive/My Drive/data/storage/models/export/1569699519'
     # retrive model 
     predict_fn = tf.contrib.predictor.from_saved_model(export_dir)
-    inputs = pd.DataFrame({'sentence': [sentence],})
+    inputs = pd.DataFrame({'sentence': [my_data.str_clean(sentence)],})
     examples = []
     for index, row in inputs.iterrows():
         feature = {}

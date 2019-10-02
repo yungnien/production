@@ -21,9 +21,10 @@ def train_lg(X_train, y_train):
   logging.info('complete the training')
   return logreg
 
-def predict_lg(X_predict):
+def predict_lg(sentence):
   logreg = load(path +'logreg_ref.pkl')
-  y_pred = logreg.predict(X_predict)
+  sentence = str_clean(sentence)
+  y_pred = logreg.predict([sentence])
   logging.info('return prediction')
   return y_pred
   
@@ -32,10 +33,10 @@ def test_lg(X_dev, y_dev):
   y_pred = logreg.predict(X_dev)
   return f1_score(y_dev, y_pred, average='weighted') > 0.90
 
-def run_train_lg(filename):
+def run_train_lg(filename==""):
   if filename = None:
     filename = my_utils.datafile
 
-  X_train, X_dev, X_test, y_train, y_dev, y_test = my_data.generate_lm(filename)
+  X_train, X_dev, X_test, y_train, y_dev, y_test = my_data.generate_lg(filename)
   train_lg(X_train, y_train)
 

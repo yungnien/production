@@ -118,24 +118,15 @@ def test():
  
 def generate_lg(filename):
   train_data = pd.read_csv(path+filename)
-  train_data = data_clean(train_data, 'train_ref.pkl')
-  train_data_s = pd.concat([train_data.loc[(train_data['target'] == 0) & (train_data['question_text'].str.len() > 10)].sample(n=90000, random_state=42),\
-                            train_data.loc[(train_data['target'] == 1) & (train_data['question_text'].str.len() > 10)].sample(n=80000, random_state=42)], ignore_index=True)
-  train_data_s = train_data_s.sample(frac=1).reset_index(drop=True)
-  
+  train_data = data_clean(train_data, 'train_ref.pkl')  
   X_train, X_dev, X_test, y_train, y_dev, y_test = threeway_split(train_data['question_text'], train_data['target'])
   logging.info("lg_generate complete")
   return X_train, X_dev, X_test, y_train, y_dev, y_test
 
 def generate_rnn(filename):
   train_data = pd.read_csv(path+filename)
-  train_data = data_clean(train_data, 'train_ref.pkl')
-  train_data_s = pd.concat([train_data.loc[(train_data['target'] == 0) & (train_data['question_text'].str.len() > 10)].sample(n=90000, random_state=42),\
-                            train_data.loc[(train_data['target'] == 1) & (train_data['question_text'].str.len() > 10)].sample(n=80000, random_state=42)], ignore_index=True)
-  train_data_s = train_data_s.sample(frac=1).reset_index(drop=True)
-  
+  train_data = data_clean(train_data, 'train_ref.pkl') 
   X_train, X_dev, X_test, y_train, y_dev, y_test = threeway_split(train_data['question_text'], train_data['target'])
-  
   tokenizer = Tokenizer(num_words=num_words, lower=False, char_level=False)
   tokenizer.fit_on_texts(train_data['question_text'])
   X_train_token  = tokenizer.texts_to_sequences(X_train)
@@ -145,9 +136,9 @@ def generate_rnn(filename):
   X_dev_token = pad_sequences(X_dev_token, maxlen=max_tokens, padding=pad, truncating=pad).tolist()
   X_test_token = pad_sequences(X_test_token, maxlen=max_tokens, padding=pad, truncating=pad).tolist()
   dump(tokenizer, path+'tokenizer_ref.pkl')
-  logging.info("lg_generate complete and tokenizer dumpped to "+path+'/tokenizer_ref.pkl")
+  logging.info("lg_generate complete and tokenizer dumpped to "+path+"/tokenizer_ref.pkl")
   return X_train_token, X_dev_token, X_test_token, y_train, y_dev, y_test, tokenizer
-  
+
 def generate_lm(filename):
   train_data = pd.read_csv(path+filename)
   train_data = data_clean(train_data, 'train_ref.pkl')
@@ -157,5 +148,4 @@ def generate_lm(filename):
   X_train_s, X_dev_s, X_test_s, y_train_s, y_dev_s, y_test_s = threeway_split(train_data_s['question_text'], train_data_s['target'])
   logging.info("lm_generate complete")
   return X_train_s, X_dev_s, X_test_s, y_train_s, y_dev_s, y_test_s
-
 

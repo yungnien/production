@@ -92,7 +92,7 @@ def test_rnn_token(X_token, y_value):
 
 def predict_rnn(question):
     tokenizer= load(path+'tokenizer_ref.pkl')
-    X_token = tokenizer.texts_to_sequences([question])
+    X_token = tokenizer.texts_to_sequences([my_data.str_clean(question)])
     X_token = pad_sequences(X_token, maxlen=max_tokens, padding=pad, truncating=pad).tolist()
     result = predict_rnn_token(X_token)
     logging.info('predict rnn: ' + question + ' result' )
