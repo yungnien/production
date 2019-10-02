@@ -6,6 +6,7 @@ from sklearn.metrics import f1_score
 import numpy as np
 from joblib import dump, load
 import my_utils
+import my_data
 
 num_words = my_utils.num_words 
 path = my_utils.path
@@ -35,6 +36,6 @@ def run_train_lg(filename):
   if filename = None:
     filename = my_utils.datafile
 
-  X_train, X_dev, X_test, y_train, y_dev, y_test = generate_lm(filename)
+  X_train, X_dev, X_test, y_train, y_dev, y_test = my_data.generate_lm(filename)
   train_lg(X_train, y_train)
 
