@@ -33,7 +33,7 @@ def train_lm(filename):
         activation_fn=tf.nn.relu,
         dropout=0.1,
         optimizer=tf.train.AdagradOptimizer(learning_rate=0.005),
-        model_dir=path+'storage/models/refact/',
+        model_dir=path+'../exploration/models/',
         config=my_checkpointing_config)
     for step in range(0, TOTAL_STEPS+1, STEP_SIZE):
         logging.info('Training for step =', step)
@@ -42,12 +42,12 @@ def train_lm(filename):
         logging.info('Eval Metrics (Validation):', dnn.evaluate(input_fn=predict_val_input_fn))
         logging.info('\n')
 
-    export_dir = dnn.export_savedmodel(path+'storage/models/export', serving_input_receiver_fn)        
+    export_dir = dnn.export_savedmodel(path+'../exploration/models/', serving_input_receiver_fn)        
     logging.info('export model to '+ export_dir)
     return dnn, export_dir
 
 def predict_lm(sentence, export_dir):
-    export_dir = b'/content/drive/My Drive/data/storage/models/export/1569699519'
+    export_dir = b'../exploration/data/models/1569699519'
     # retrive model 
     predict_fn = tf.contrib.predictor.from_saved_model(export_dir)
     inputs = pd.DataFrame({'sentence': [my_data.str_clean(sentence)],})

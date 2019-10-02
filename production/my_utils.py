@@ -154,7 +154,7 @@ def  word_doc2vec_list(model, docs):
 ## FUNCTIONS TAKEN FROM https://www.kaggle.com/gmhost/gru-capsule
 
 def load_glove(word_index):
-    EMBEDDING_FILE = path+"embeddings/glove.840B.300d/glove.840B.300d.txt"
+    EMBEDDING_FILE = path+"../embeddings/glove.840B.300d/glove.840B.300d.txt"
     def get_coefs(word,*arr): return word, np.asarray(arr, dtype='float32')[:300]
     embeddings_index = dict(get_coefs(*o.split(" ")) for o in open(EMBEDDING_FILE))
     
@@ -178,7 +178,7 @@ def load_glove(word_index):
     
             
 def load_fasttext(word_index):    
-    EMBEDDING_FILE = path+"embeddings/wiki-news-300d-1M/wiki-news-300d-1M.vec"
+    EMBEDDING_FILE = path+"../embeddings/wiki-news-300d-1M/wiki-news-300d-1M.vec"
     def get_coefs(word,*arr): return word, np.asarray(arr, dtype='float32')
     embeddings_index = dict(get_coefs(*o.split(" ")) for o in open(EMBEDDING_FILE) if len(o)>100)
 
@@ -196,7 +196,7 @@ def load_fasttext(word_index):
     return embedding_matrix
 
 def load_para(word_index):
-    EMBEDDING_FILE = path+'embeddings/paragram_300_sl999/paragram_300_sl999.txt'
+    EMBEDDING_FILE = path+'../embeddings/paragram_300_sl999/paragram_300_sl999.txt'
     def get_coefs(word,*arr): return word, np.asarray(arr, dtype='float32')
     embeddings_index = dict(get_coefs(*o.split(" ")) for o in open(EMBEDDING_FILE, encoding="utf8", errors='ignore') if len(o)>100)
 

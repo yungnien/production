@@ -17,7 +17,7 @@ pad = my_utils.pad
 path = my_utils.path
 
 def load_para(word_index):
-    EMBEDDING_FILE = path+'embeddings/paragram_300_sl999/paragram_300_sl999.txt'
+    EMBEDDING_FILE = path+'../embeddings/paragram_300_sl999/paragram_300_sl999.txt'
     def get_coefs(word,*arr): return word, np.asarray(arr, dtype='float32')
     embeddings_index = dict(get_coefs(*o.split(" ")) for o in open(EMBEDDING_FILE, encoding="utf8", errors='ignore') if len(o)>100)
 
@@ -36,10 +36,10 @@ def load_para(word_index):
 
 def train_rnn():
     tokenizer= load(path+'tokenizer_ref.pkl')
-    X_train_token = load(path +'X_train_token_project.sav')
-    X_dev_token = load(path +'X_dev_token_project.sav')
-    y_train = load(path +'y_train_project.sav')
-    y_dev = load(path +'y_dev_project.sav')
+    X_train_token = load(path +'X_train_token_ref.sav')
+    X_dev_token = load(path +'X_dev_token_ref.sav')
+    y_train = load(path +'y_train_ref.sav')
+    y_dev = load(path +'y_dev_ref.sav')
     paragram_embeddings = load_para(tokenizer.word_index)
     
     model = Sequential()
@@ -53,7 +53,7 @@ def train_rnn():
     model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['AUC', 'accuracy'])
     model.summary()
     history = model.fit(np.array(X_train_token), y_train, validation_data=(np.array(X_dev_token),y_dev), epochs=4, batch_size=500)
-    save_model(model,path+'rnn_model.h5')
+    save_model(model,path+'rnn_model_ref.h5')
     logging.info('train complete')
 
 def train_rnn(filename):
@@ -71,12 +71,12 @@ def train_rnn(filename):
     model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['AUC', 'accuracy'])
     model.summary()
     history = model.fit(np.array(X_train_token), y_train, validation_data=(np.array(X_dev_token),y_dev), epochs=4, batch_size=500)
-    save_model(model,path+'rnn_model.h5')
+    save_model(model,path+'rnn_model_ref.h5')
     logging.info('train complete')
     return model
 
 def predict_rnn_token(X_token):
-    model = load_model(path+'rnn_model.h5')
+    model = load_model(path+'rnn_model_ref.h5')
     predicted = model.predict(np.array(X_token))
     predicted = predicted.T[0]
     cls_pred = np.array([1.0 if p>0.5 else 0.0 for p in predicted])
@@ -84,7 +84,7 @@ def predict_rnn_token(X_token):
     return cls_pred
 
 def test_rnn_token(X_token, y_value):
-    model = load_model(path+'rnn_model.h5')
+    model = load_model(path+'rnn_model_ref.h5')
     predicted = model.predict(np.array(X_token))
     predicted = predicted.T[0]
     cls_pred = np.array([1.0 if p>0.5 else 0.0 for p in predicted])  
