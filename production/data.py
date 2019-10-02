@@ -45,7 +45,7 @@ def threeway_split(X, y):
     del X_hold, y_hold
     return X_train, X_dev, X_test, y_train, y_dev, y_test
 
-def generate(filename):
+def generate_all(filename):
   train_data = pd.read_csv(path+filename)
   train_data = data_clean(train_data, 'train_ref.pkl')
   train_data_s = pd.concat([train_data.loc[(train_data['target'] == 0) & (train_data['question_text'].str.len() > 10)].sample(n=90000, random_state=42),\
@@ -116,7 +116,7 @@ def test():
   logging.info("test complete")
   return True
  
-def lg_generate(filename):
+def generate_lg(filename):
   train_data = pd.read_csv(path+filename)
   train_data = data_clean(train_data, 'train_ref.pkl')
   train_data_s = pd.concat([train_data.loc[(train_data['target'] == 0) & (train_data['question_text'].str.len() > 10)].sample(n=90000, random_state=42),\
@@ -127,7 +127,7 @@ def lg_generate(filename):
   logging.info("lg_generate complete")
   return X_train, X_dev, X_test, y_train, y_dev, y_test
 
-def rnn_generate(filename):
+def generate_rnn(filename):
   train_data = pd.read_csv(path+filename)
   train_data = data_clean(train_data, 'train_ref.pkl')
   train_data_s = pd.concat([train_data.loc[(train_data['target'] == 0) & (train_data['question_text'].str.len() > 10)].sample(n=90000, random_state=42),\
@@ -148,7 +148,7 @@ def rnn_generate(filename):
   logging.info("lg_generate complete and tokenizer dumpped to "+path+'/tokenizer_ref.pkl")
   return X_train_token, X_dev_token, X_test_token, y_train, y_dev, y_test, tokenizer
   
-def lm_generate(filename):
+def generate_lm(filename):
   train_data = pd.read_csv(path+filename)
   train_data = data_clean(train_data, 'train_ref.pkl')
   train_data_s = pd.concat([train_data.loc[(train_data['target'] == 0) & (train_data['question_text'].str.len() > 10)].sample(n=90000, random_state=42),\
