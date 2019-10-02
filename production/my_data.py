@@ -123,6 +123,13 @@ def generate_lg(filename):
   logging.info("lg_generate complete")
   return X_train, X_dev, X_test, y_train, y_dev, y_test
 
+def generate_lg_test(filename):
+  train_data = pd.read_csv(filename)
+  train_data = data_clean(train_data, 'train_ref.pkl')
+  X_train, X_dev, X_test, y_train, y_dev, y_test = threeway_split(train_data['question_text'], train_data['target'])
+  logging.info("lg_generate complete")
+  return X_train, X_dev, X_test, y_train, y_dev, y_test
+
 def generate_rnn(filename):
   train_data = pd.read_csv(path+filename)
   train_data = data_clean(train_data, 'train_ref.pkl') 
